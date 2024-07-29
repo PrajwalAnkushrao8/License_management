@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Users</title>
+</head>
+<body>
+    <h1>Search Users</h1>
+    <form method="get" action="{% url 'search_users' %}">
+        <input type="text" name="username" placeholder="Search by Username" value="{{ form.username.value }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Results:</h2>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>License</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.user_email }}</td>
+            <td>{{ user.license.company_name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

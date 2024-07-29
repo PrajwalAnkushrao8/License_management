@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        .table {
+            min-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">License List</h1>
+        <div class="mb-3">
+            <a href="{% url 'add_license' %}" class="btn btn-primary">Add New License</a>
+            <a href="{% url 'bulk_import' %}" class="btn btn-secondary">Bulk Import</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+        <div class="mb-3">
+            <form method="get" action="{% url 'search_users' %}" class="form-inline">
+                <input type="text" name="tenant_name" class="form-control mr-2" placeholder="Search by Tenant Name">
+                <input type="text" name="username" class="form-control mr-2" placeholder="Search by Username">
+                <button type="submit" class="btn btn-outline-success">Search</button>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Category</th>
+                        <th>Deployment Type</th>
+                        <th>Tenant Name</th>
+                        <th>License Status</th>
+                        <th>License Valid From</th>
+                        <th>License Valid Till</th>
+                        <th>Assigned License Quantity</th>
+                        <th>Approved By</th>
+                        <th>Account Manager</th>
+                        <th>Users</th>
+                        <th>Modules</th>
+                        <th>Instance</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for license in licenses %}
+                    <tr>
+                        <td>{{ license.company_name }}</td>
+                        <td>{{ license.category }}</td>
+                        <td>{{ license.deployment_type }}</td>
+                        <td>{{ license.tenant_name }}</td>
+                        <td>{{ license.license_status }}</td>
+                        <td>{{ license.license_valid_from }}</td>
+                        <td>{{ license.license_valid_till }}</td>
+                        <td>{{ license.assigned_license_quantity }}</td>
+                        <td>{{ license.approved_by }}</td>
+                        <td>{{ license.account_manager }}</td>
+
+                        <td>
+                            <ul class="list-unstyled">
+                                {% for user in license.users.all %}
+                                <li>{{ user.user_email }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>{{ license.license_provided }}</td>
+
+                        <td>{{ license.instance }}</td>
+                        <td>
+                            <a href="{% url 'edit_license' license.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'delete_license' license.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit License</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Edit License</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Render all fields in the LicenseForm as paragraphs -->
+            <h2>Tenant Users</h2>
+            {{ formset.management_form }} <!-- Render management form for formset -->
+            {% for form in formset %}
+                {{ form.as_p }} <!-- Render each form in the formset as paragraphs -->
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

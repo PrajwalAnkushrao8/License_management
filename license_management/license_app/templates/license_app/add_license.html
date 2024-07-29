@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit License</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Edit License</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="company_name">Company Name</label>
+                    {{ form.company_name }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="category">Category</label>
+                    {{ form.category }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="deployment_type">Deployment Type</label>
+                    {{ form.deployment_type }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="tenant_name">Tenant Name</label>
+                    {{ form.tenant_name }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="license_status">License Status</label>
+                    {{ form.license_status }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="license_valid_from">License Valid From</label>
+                    {{ form.license_valid_from }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="license_valid_till">License Valid Till</label>
+                    {{ form.license_valid_till }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="assigned_license_quantity">Assigned License Quantity</label>
+                    {{ form.assigned_license_quantity }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="approved_by">Approved By</label>
+                    {{ form.approved_by }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="account_manager">Account Manager</label>
+                    {{ form.account_manager }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="tenant_contact">Tenant Contact</label>
+                    {{ form.tenant_contact }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="instance">Instance</label>
+                    {{ form.instance }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="license_provided">License Provided</label>
+                    {{ form.license_provided }}
+                </div>
+            </div>
+            <h2>Tenant Users</h2>
+            <div class="form-group">
+                <label for="user_emails">User Emails</label>
+                {{ bulk_user_form.user_emails }}
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
