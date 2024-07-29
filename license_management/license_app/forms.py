@@ -42,3 +42,18 @@ class BulkImportForm(forms.Form):
 class UserSearchForm(forms.Form):
     tenant_name = forms.CharField(max_length=255, required=False, label='Tenant Name')
     username = forms.CharField(max_length=255, required=False, label='Username')
+    
+    
+class ModuleQuantityForm(forms.Form):
+    # Define module names
+    module_names = ['Rubiflow', 'Rubisight-Designer', 'Rubistudio', 'Rubisight-Viewer','RubiFlow','News Analysis','Admin','Rubithings']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Add fields for each module with a default value of zero
+        for module_name in self.module_names:
+            self.fields[f'quantity_{module_name}'] = forms.IntegerField(
+                initial=0, 
+                label=module_name,
+                required=False
+            )

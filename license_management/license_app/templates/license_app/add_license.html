@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit License</title>
+    <title>Add License</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Edit License</h1>
+        <h1 class="mb-4">Add License</h1>
         <form method="post">
             {% csrf_token %}
             <div class="form-row">
@@ -77,30 +77,24 @@
                 </div>
                 
             </div>
-            <h2>License Modules</h2>
+            <h2>Module Quantities</h2>
             <div id="modules">
-                {% for form in module_formset %}
+                {% for field in module_form %}
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            {{ form.module_name.label_tag }}
-                            {{ form.module_name }}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{ form.quantity.label_tag }}
-                            {{ form.quantity }}
+                            {{ field.label_tag }}
+                            {{ field }}
                         </div>
                     </div>
                 {% endfor %}
-                {{ module_formset.management_form }}
             </div>
-            <button id="add-module" class="btn btn-secondary mt-3">Add Another Module</button>
 
             <h2>Tenant Users</h2>
             <div class="form-group">
-                <label for="user_emails">User Emails</label>
+                <label for="user_emails">User Emails (comma-separated)</label>
                 {{ bulk_user_form.user_emails }}
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Save Changes</button>
             <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
         </form>
@@ -110,6 +104,5 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    
 </body>
 </html>
