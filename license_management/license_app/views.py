@@ -2,7 +2,7 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from .forms import LicenseForm, TenantUserFormSet, BulkImportForm,  UserSearchForm, BulkTenantUserForm
+from .forms import LicenseForm, LicenseModuleFormSet, TenantUserFormSet, BulkImportForm,  UserSearchForm, BulkTenantUserForm
 from .models import License,TenantUser
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -32,38 +32,34 @@ def home_view(request):
 def add_license_view(request):
     if request.method == 'POST':
         form = LicenseForm(request.POST)
+        module_formset = LicenseModuleFormSet(request.POST)
         bulk_user_form = BulkTenantUserForm(request.POST)
-        
-       
-        # print("Form Data:", request.POST)
-        # print("License Form is valid:", form.is_valid())
-        if not form.is_valid():
-            print("License Form Errors:", form.errors)
-        print("Bulk User Form is valid:", bulk_user_form.is_valid())
-        if not bulk_user_form.is_valid():
-            print("Bulk User Form Errors:", bulk_user_form.errors)
-        
-        if form.is_valid() and bulk_user_form.is_valid():
+
+        if form.is_valid() and module_formset.is_valid() and bulk_user_form.is_valid():
             license_obj = form.save(commit=False)
             license_obj.submitted_by = request.user
             license_obj.save()
 
-            # print("License Object Saved:", license_obj)
+            # Save the module formset with the new license instance
+            module_formset.instance = license_obj
+            module_formset.save()
 
-            # Split the user emails by commas and create TenantUser objects
             user_emails = bulk_user_form.cleaned_data['user_emails']
-            print("User Emails:", user_emails)
             for email in user_emails.split(','):
                 TenantUser.objects.create(license=license_obj, user_email=email.strip())
-            
-                # print("Created TenantUser for email:", email.strip())
 
             return redirect('home')
+        else:
+            # Print errors if any
+            print("License Form Errors:", form.errors)
+            print("Bulk User Form Errors:", bulk_user_form.errors)
+            print("Module Formset Errors:", module_formset.errors)
     else:
         form = LicenseForm()
+        module_formset = LicenseModuleFormSet()
         bulk_user_form = BulkTenantUserForm()
 
-    return render(request, 'license_app/add_license.html', {'form': form, 'bulk_user_form': bulk_user_form})
+    return render(request, 'license_app/add_license.html', {'form': form, 'module_formset': module_formset, 'bulk_user_form': bulk_user_form})
 
 
 

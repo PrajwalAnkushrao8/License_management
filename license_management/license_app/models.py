@@ -65,3 +65,20 @@ class TenantUser(models.Model):
 
     def __str__(self):
         return self.user_email
+    
+    
+class LicenseModule(models.Model):
+    MODULE_CHOICES = [
+        ('Rubiflow', 'Rubiflow'),
+        ('Rubisight-Designer', 'Rubisight-Designer'),
+        ('Rubistudio', 'Rubistudio'),
+        ('Rubisight-Viewer', 'Rubisight-Viewer'),
+        
+    ]
+    
+    license = models.ForeignKey(License, related_name='modules', on_delete=models.CASCADE)
+    module_name = models.CharField(max_length=50, choices=MODULE_CHOICES)
+    quantity = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.module_name} - {self.quantity} units"

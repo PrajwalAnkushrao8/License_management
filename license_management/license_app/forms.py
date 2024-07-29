@@ -1,5 +1,5 @@
 from django import forms
-from .models import License, TenantUser
+from .models import License, TenantUser,LicenseModule
 
 class LicenseForm(forms.ModelForm):
     class Meta:
@@ -26,6 +26,13 @@ class BulkTenantUserForm(forms.Form):
         'placeholder': 'Enter user emails separated by commas',
         'rows': 3
     }))
+    
+class LicenseModuleForm(forms.ModelForm):
+    class Meta:
+        model = LicenseModule
+        fields = ['module_name', 'quantity']
+
+LicenseModuleFormSet = forms.inlineformset_factory(License, LicenseModule, form=LicenseModuleForm, extra=1)
 
 
 
