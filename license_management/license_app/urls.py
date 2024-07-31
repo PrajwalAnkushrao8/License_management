@@ -1,5 +1,6 @@
+from django import views
 from django.urls import path
-from .views import login_view, home_view, add_license_view, bulk_import_view, delete_license_view, edit_license_view, search_view
+from .views import export_tenant_data, login_view, home_view, add_license_view, bulk_import_view, delete_license_view, edit_license_view, search_view
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     path('edit/<int:pk>/', edit_license_view, name='edit_license'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),  
     path('search_users/', search_view, name='search_users'),
+    path('export_tenant_data/', export_tenant_data, name='export_tenant_data'),
 ]
