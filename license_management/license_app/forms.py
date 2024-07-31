@@ -46,7 +46,7 @@ class UserSearchForm(forms.Form):
     
 class ModuleQuantityForm(forms.Form):
     # Define module names
-    module_names = ['Rubiflow', 'Rubisight-Designer', 'Rubistudio', 'Rubisight-Viewer','RubiFlow','News Analysis','Admin','Rubithings']
+    module_names = [ 'Rubisight-Designer', 'Rubistudio', 'Rubisight-Viewer','RubiFlow','News Analysis','Admin','Rubithings']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -56,4 +56,5 @@ class ModuleQuantityForm(forms.Form):
                 initial=0, 
                 label=module_name,
                 required=False
+                
             )
