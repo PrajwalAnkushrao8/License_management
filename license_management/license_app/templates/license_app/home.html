@@ -21,6 +21,7 @@
             <a href="{% url 'add_license' %}" class="btn btn-primary">Add New License</a>
             <a href="{% url 'bulk_import' %}" class="btn btn-secondary">Bulk Import</a>
             <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            <a href="{% url 'export_tenant_data' %}" class="btn btn-info">Download Tenant Data as CSV</a>
         </div>
         <div class="mb-3">
             <form method="get" action="{% url 'search_users' %}" class="form-inline">
@@ -44,7 +45,7 @@
                         <th>Approved By</th>
                         <th>Account Manager</th>
                         <th>Users</th>
-                        <th>Modules</th>
+                        <!-- <th>Modules</th> -->
                         <th>Instance</th>
                         <th>Actions</th>
 
@@ -71,7 +72,7 @@
                                 {% endfor %}
                             </ul>
                         </td>
-                        <td>{{ license.license_provided }}</td>
+                        <!-- <td>{{ license.license_provided }}</td> -->
 
                         <td>{{ license.instance }}</td>
                         <td>
