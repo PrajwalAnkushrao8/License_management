@@ -10,12 +10,90 @@
         <h1 class="mb-4">Edit License</h1>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }} <!-- Render all fields in the LicenseForm as paragraphs -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="company_name">Company Name</label>
+                    {{ form.company_name }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="category">Category</label>
+                    {{ form.category }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="deployment_type">Deployment Type</label>
+                    {{ form.deployment_type }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="tenant_name">Tenant Name</label>
+                    {{ form.tenant_name }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="license_status">License Status</label>
+                    {{ form.license_status }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="license_valid_from">License Valid From</label>
+                    {{ form.license_valid_from }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="license_valid_till">License Valid Till</label>
+                    {{ form.license_valid_till }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="assigned_license_quantity">Assigned License Quantity</label>
+                    {{ form.assigned_license_quantity }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="approved_by">Approved By</label>
+                    {{ form.approved_by }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="account_manager">Account Manager</label>
+                    {{ form.account_manager }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="tenant_contact">Tenant Contact</label>
+                    {{ form.tenant_contact }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="instance">Instance</label>
+                    {{ form.instance }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="license_provided">License Provided</label>
+                    {{ form.license_provided }}
+                </div>
+            </div>
+            <h2>Module Quantities</h2>
+            <div id="modules">
+                {% for field in module_form %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
             <h2>Tenant Users</h2>
-            {{ formset.management_form }} <!-- Render management form for formset -->
-            {% for form in formset %}
-                {{ form.as_p }} <!-- Render each form in the formset as paragraphs -->
-            {% endfor %}
+            <div class="form-group">
+                <label for="user_emails">User Emails (comma-separated)</label>
+                {{ bulk_user_form.user_emails }}
+            </div>
+
             <button type="submit" class="btn btn-primary">Save Changes</button>
             <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
         </form>

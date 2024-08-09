@@ -78,7 +78,7 @@ class LicenseModule(models.Model):
     
     license = models.ForeignKey(License, related_name='modules', on_delete=models.CASCADE)
     module_name = models.CharField(max_length=50, choices=MODULE_CHOICES)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default='0')
 
     def __str__(self):
         return f"{self.module_name} - {self.quantity} units"

@@ -49,11 +49,12 @@ class ModuleQuantityForm(forms.Form):
     module_names = [ 'Rubisight-Designer', 'Rubistudio', 'Rubisight-Viewer','RubiFlow','News Analysis','Admin','Rubithings']
     
     def __init__(self, *args, **kwargs):
+        initial = kwargs.get('initial', {})
         super().__init__(*args, **kwargs)
         # Add fields for each module with a default value of zero
-        for module_name in self.module_names:
+        for module_name,i in self.module_names:
             self.fields[f'quantity_{module_name}'] = forms.IntegerField(
-                initial=0, 
+                initial=self.module_names[i],
                 label=module_name,
                 required=False
                 
