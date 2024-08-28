@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 class License(models.Model):
     CATEGORY_CHOICES = [
         ('Partner', 'Partner'),
@@ -45,7 +45,7 @@ class License(models.Model):
     deployment_type = models.CharField(max_length=50, choices=DEPLOYMENT_TYPE_CHOICES)
     tenant_name = models.CharField(max_length=255)
     license_status = models.CharField(max_length=50, choices=LICENSE_STATUS_CHOICES)
-    license_category = models.CharField(max_length=50, choices=LICENSE_CATEGORY_CHOICES,default='Free')
+    license_category = models.CharField(max_length=50, choices=LICENSE_CATEGORY_CHOICES,default='Sponsored')
     license_valid_from = models.DateField()
     license_valid_till = models.DateField()
     assigned_license_quantity = models.IntegerField()
@@ -58,6 +58,14 @@ class License(models.Model):
 
     def __str__(self):
         return f"{self.company_name} - {self.tenant_name}"
+    
+    def update_status(self):
+        today = timezone.now().date()
+        if self.license_valid_till < today:
+            self.license_status = 'Inactive'
+        else:
+            self.license_status = 'Active'
+        self.save()
 
 class TenantUser(models.Model):
     license = models.ForeignKey(License, related_name='users', on_delete=models.CASCADE)
