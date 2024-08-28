@@ -278,6 +278,8 @@ def export_tenant_data(request):
     
     # Get all licenses with their related modules
     licenses = License.objects.all().prefetch_related('modules')
+    licenses = License.objects.prefetch_related('modules').all()
+
 
     for license in licenses:
         # Prepare a row for the current license
