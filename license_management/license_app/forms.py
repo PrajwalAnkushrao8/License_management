@@ -5,7 +5,7 @@ class LicenseForm(forms.ModelForm):
     class Meta:
         model = License
         fields = [
-            'company_name', 'category', 'deployment_type', 'tenant_name', 'license_status', 'category',
+            'company_name', 'category', 'deployment_type','license_category' ,'tenant_name', 'license_status', 'category',
             'license_valid_from', 'license_valid_till', 'assigned_license_quantity', 
             'approved_by', 'account_manager', 'instance','license_provided','tenant_contact'
         ]
@@ -46,16 +46,15 @@ class UserSearchForm(forms.Form):
     
 class ModuleQuantityForm(forms.Form):
     # Define module names
-    module_names = [ 'Rubisight-Designer', 'Rubistudio', 'Rubisight-Viewer','RubiFlow','News Analysis','Admin','Rubithings']
-    
+    module_names = ['Rubisight-Designer', 'Rubistudio', 'Rubisight-Viewer', 'RubiFlow', 'News Analysis', 'Admin', 'Rubithings']
+   
     def __init__(self, *args, **kwargs):
         initial = kwargs.get('initial', {})
         super().__init__(*args, **kwargs)
         # Add fields for each module with a default value of zero
-        for module_name,i in self.module_names:
+        for module_name in self.module_names:
             self.fields[f'quantity_{module_name}'] = forms.IntegerField(
-                initial=self.module_names[i],
+                initial=initial.get(module_name, 0),  # Correct way to get initial data
                 label=module_name,
                 required=False
-                
             )
